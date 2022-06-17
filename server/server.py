@@ -2,10 +2,19 @@ from fastapi import FastAPI
 from dotenv import load_dotenv
 import requests
 import os
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 API_KEY = os.getenv('API_KEY')
 API_URL_ROOT = "https://api.sandbox.primer.io"
