@@ -1,5 +1,5 @@
 import useClientSession from "./hooks/useClientSession";
-import Checkout from "./Checkout";
+import Checkout from "./checkout";
 
 function App() {
   const { clientSession } = useClientSession();
