@@ -1,5 +1,6 @@
 import { Primer, PrimerVaultManager } from "@primer-io/checkout-web";
 import { useEffect, useState } from "react";
+import ErrorMessage from "./ErrorMessage";
 import SubmitButton from "./SubmitButton";
 
 interface Props {
@@ -8,13 +9,19 @@ interface Props {
 
 const Checkout: React.FC<Props> = ({ clientToken }) => {
   const [vaultManager, setVaultManager] = useState<PrimerVaultManager>();
+  const [error, setError] = useState<string>();
 
   useEffect(() => {
     Primer.showUniversalCheckout(clientToken, {
       container: "#checkout",
-      locale: 'fr',
+      locale: "fr",
       submitButton: {
         useBuiltInButton: false,
+      },
+      errorMessage: {
+        onErrorMessageShow(message) {
+          setError(message);
+        },
       },
     }).then((vaultManager) => setVaultManager(vaultManager));
   }, []);
@@ -27,6 +34,7 @@ const Checkout: React.FC<Props> = ({ clientToken }) => {
     <div>
       <div id="checkout"></div>
       <SubmitButton onSubmit={onSubmit} />
+      {error && <ErrorMessage message={error} />}
     </div>
   );
 };
