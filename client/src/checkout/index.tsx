@@ -12,6 +12,7 @@ const Checkout: React.FC<Props> = ({ clientToken }) => {
   useEffect(() => {
     Primer.showUniversalCheckout(clientToken, {
       container: "#checkout",
+      locale: 'fr',
       submitButton: {
         useBuiltInButton: false,
       },
